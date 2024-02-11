@@ -32,8 +32,9 @@ namespace Api.Controllers
             return HandleResult(await Mediator.Send(new Delete.Command{ Id = id }));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetProducts(FilterRequest request)
+        [HttpPost]
+        [Route("GetProducts")]
+        public async Task<IActionResult> GetProducts([FromBody] FilterRequest request)
         {
             return HandleResult(await Mediator.Send(new Application.Products.List.Query{ FilterParams = request }));
         }
