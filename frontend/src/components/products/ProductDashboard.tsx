@@ -7,7 +7,7 @@ import ProductSearch from "./ProductSearch";
 import ModalConfirmation from "../modals/ModalConfirmation";
 
 const ProductDashboard = () => {
-  const { productStore: { errorMessage, getProducts, idProduct, deleteProduct, list }} = useStore();
+  const { productStore: { errorMessage, getProducts, idProduct, loading, deleteProduct, list }} = useStore();
   const { commonStore: { showModal }} = useStore();
 
   useEffect(() => {
@@ -39,6 +39,13 @@ const ProductDashboard = () => {
           </>
         )}
 
+        {loading && (
+          <div className="d-flex justify-content-center">
+            <strong role="status">Cargando...</strong>
+            <div className="spinner-border ms-2" style={{ width: '3rem', height: '3rem' }}></div>
+          </div>
+        )}
+
         <div className="row mt-5">
           <div className="col-12">
             <div className="row">
@@ -56,9 +63,11 @@ const ProductDashboard = () => {
                 <ProductListItem key={ product.id } product={ product } />
               ))
             ) : (
-              <div className="alert alert-warning" role="alert">
-                No se encontraron productos!
-              </div>
+              !loading && (
+                <div className="alert alert-warning" role="alert">
+                  No se encontraron productos!
+                </div>
+              )
             )}
           </div>
         </div>

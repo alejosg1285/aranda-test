@@ -11,7 +11,7 @@ const ProductFormUpdate = () => {
   const [imagePreview, setImagePreview] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const { categoryStore: { categories, list } } = useStore();
-  const { productStore: { errorMessage, loading, loadProduct, update }} = useStore();
+  const { productStore: { errorMessage, loading, create, loadProduct, update }} = useStore();
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState({
     name: '',
@@ -52,7 +52,7 @@ const ProductFormUpdate = () => {
 
   return (
     <div className="container">
-      <h3 className="text-center">Actualizar Producto</h3>
+      <h3 className="text-center">{id ? 'Actualizar' : 'Nuevo'} Producto</h3>
 
       {errorMessage && (
         <>
@@ -67,14 +67,19 @@ const ProductFormUpdate = () => {
         initialValues={product}
         enableReinitialize
         onSubmit = { values => {
-          const productRequest: ProductRequest = {
-            id: parseInt(id!),
-            name: values.name,
-            description: values.description,
-            photoUrl: selectedImage,
-            categoryId: values.category
-          }
-          update(productRequest);
+            const productRequest: ProductRequest = {
+              name: values.name,
+              description: values.description,
+              photoUrl: selectedImage,
+              categoryId: values.category
+            }
+
+            if (id) {
+              productRequest.id = parseInt(id!);
+              update(productRequest);
+            } else {
+              create(productRequest);
+            }
           }
         }
       >

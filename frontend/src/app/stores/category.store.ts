@@ -15,7 +15,6 @@ export default class CategoryStore {
   list = async() => {
     try {
       const result = await agent.Categories.list();
-      console.info(result);
       runInAction(() => this.categories = result);
     } catch (error) {
       console.error(error);

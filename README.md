@@ -27,3 +27,21 @@ En la consola de comandos ubicarse a nivel de la carpeta `backend\Api` del proye
 backend>dotnet run
 ```
 La aplicación se ejecutará por defecto en el puerto `5117`
+
+## Frontend
+
+### Instalar dependencias
+En la consola de comandos ubicarse a nivel de la carpeta `frontend` del proyecto y ejecutar uno de los siguientes comandos:
+```
+frontend>npm install
+```
+o
+```
+frontend>yarn
+```
+
+### Actualizar url endpoints
+Si la aplicación `backend` está corriendo en un puerto diferente al `5117` se debe actualizar la url base en el archivo `.env` ubicado en la carpeta `frontend`
+```
+REACT_APP_BASE_URL=http://localhost:5117/
+```

@@ -1,5 +1,8 @@
-﻿namespace Domain;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Domain;
+
+[NotMapped]
 public class Photo
 {
     public string Id { get; set; }

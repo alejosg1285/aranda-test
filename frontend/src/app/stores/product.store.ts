@@ -113,10 +113,14 @@ export class ProductStore {
 
   list = async () => {
     try {
+      this.loading = true;
       const result = await agent.Products.list(this.filterParams);
       this.products = result;
+      runInAction(() => this.loading = false);
     } catch (error) {
       console.error(error);
+      this.errorMessage = 'Ocurrio un error al consultar los productos';
+      runInAction(() => this.loading = false);
     }
   }
 
